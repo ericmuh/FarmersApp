@@ -38,11 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #our customised  apps
+    # our customised  apps
     'Frontend',
-    'rest_framework',
     'Users',
-    'import_export'
+    #external libraries
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'knox',
+    'import_export',
+   
+
 ]
 
 
@@ -84,18 +90,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    
 
-    ###HEROKU Postgres set-up
-    
-        #'ENGINE': 'django.db.backends.postgresql',
-        #'NAME': 'dfnjip94teto3p',
-        #'USER': 'jmwrliaknbpqgt',
-        #'PORT': '5432',
-        #'PASSWORD':'35bcbeb6b1d064376585886bb9e15b92bae18cbb02e593dcbb50cd305bc933df',
 
-        #'HOST':'ec2-54-225-129-101.compute-1.amazonaws.com',
-        #URI:'postgres://jmwrliaknbpqgt:35bcbeb6b1d064376585886bb9e15b92bae18cbb02e593dcbb50cd305bc933df@ec2-54-225-129-101.compute-1.amazonaws.com:5432/dfnjip94teto3p'
+        # HEROKU Postgres set-up
+
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'dfnjip94teto3p',
+        # 'USER': 'jmwrliaknbpqgt',
+        # 'PORT': '5432',
+        # 'PASSWORD':'35bcbeb6b1d064376585886bb9e15b92bae18cbb02e593dcbb50cd305bc933df',
+
+        # 'HOST':'ec2-54-225-129-101.compute-1.amazonaws.com',
+        # URI:'postgres://jmwrliaknbpqgt:35bcbeb6b1d064376585886bb9e15b92bae18cbb02e593dcbb50cd305bc933df@ec2-54-225-129-101.compute-1.amazonaws.com:5432/dfnjip94teto3p'
     }
 }
 
@@ -119,8 +125,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -141,17 +145,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-##our customised settings
+# our customised settings
 
-#REST_FRAMEWORK
+# REST_FRAMEWORK
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
 }
+AUTH_USER_MODEL = 'Users.Officer'
 
-
-#IMPORT_EXPORT
+# IMPORT_EXPORT
 IMPORT_EXPORT_USE_TRANSACTIONS = True

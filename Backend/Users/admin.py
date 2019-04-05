@@ -1,17 +1,7 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 from .models import Officer, District,Subcounty, Parish
-# Register your models here.
-# class DistrictAdmin(admin.ModelAdmin):
-#     model=District
-#     list_display = ('name',)
-
-# class SubCountyAdmin(admin.ModelAdmin):
-#     model=Subcounty
-#     list_display = ('name', 'district')
-# class ParishAdmin(admin.ModelAdmin):
-#     model=Parish
-    
+from .forms import OfficerChangeForm, OfficerCreationForm
 
 
 
@@ -28,7 +18,11 @@ class SubCountyAdmin(ImportExportModelAdmin):
 class ParishAdmin(ImportExportModelAdmin):
     list_display = ('name', 'sub_county',)
 
-
+@admin.register(Officer)
+class OfficerAdmin(ImportExportModelAdmin):
+    add_form = OfficerCreationForm
+    form = OfficerChangeForm
+    list_display = ('username', 'login_id','password', 'parish')
 
 # admin.site.register(Officer)
 # admin.site.register(District, DistrictAdmin)

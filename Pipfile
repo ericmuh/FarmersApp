@@ -12,10 +12,10 @@ autopep8 = "*"
 pylint = "*"
 django-rest-knox = "*"
 django-crispy-forms = "*"
-psycopg2 = "*"
-psycopg2-binary = "*"
 pillow = "*"
 django-import-export = "*"
+psycopg2-binary = "*"
+django-rest-auth = "*"
 
 [requires]
 python_version = "3.7"

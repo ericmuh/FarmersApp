@@ -1,5 +1,6 @@
-from django.db import models
 
+from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 class District(models.Model):
     name = models.CharField(max_length=200)
@@ -20,13 +21,16 @@ class Parish(models.Model):
     def __str__(self):
         return self.name
 
-class Officer(models.Model):
-    name = models.CharField(max_length=30)
+class Officer(AbstractUser):
+
+    username = models.CharField(max_length=30, blank=True,unique=True)
+    login_id = models.CharField(max_length=50, null=True)
+    password =models.CharField(max_length=120, null=True)
     Telephone = models.CharField(max_length=30)
     parish = models.ForeignKey('Subcounty', on_delete=models.CASCADE, #related_name='parish'
      null=True)
     def __str__(self):
-        return self.name
+        return self.username
     
 class Farmer(models.Model):
     GENDER = (

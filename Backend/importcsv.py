@@ -4,7 +4,7 @@ import os
 sys.path.append('/home/eric/projects/Django/Django_Projects/farmersapp')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Backend.settings")
 from django.conf import settings
-# from Backend import settings
+from Backend import settings
 from Users.models import District, Subcounty, Parish
 
 # import django.db
