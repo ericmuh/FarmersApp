@@ -2,57 +2,69 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
 class District(models.Model):
     name = models.CharField(max_length=200)
+
     def __str__(self):
         return self.name
+
 
 class Subcounty(models.Model):
-    name=models.CharField(max_length=200)
-    district = models.ForeignKey('District', on_delete=models.CASCADE,  # related_name='district', 
-    null=True)
+    name = models.CharField(max_length=200)
+    district = models.ForeignKey('District', on_delete=models.CASCADE,  # related_name='district',
+                                 null=True)
+
     def __str__(self):
         return self.name
 
+
 class Parish(models.Model):
-    name=models.CharField(max_length=200)
-    sub_county = models.ForeignKey('Subcounty', on_delete=models.CASCADE, #related_name='sub_county',
-     null=True)
+    name = models.CharField(max_length=200)
+    sub_county = models.ForeignKey('Subcounty', on_delete=models.CASCADE,  # related_name='sub_county',
+                                   null=True)
+
     def __str__(self):
         return self.name
+
 
 class Officer(AbstractUser):
 
-    username = models.CharField(max_length=30, blank=True,unique=True)
+    username = models.CharField(max_length=30, blank=True, unique=True)
     login_id = models.CharField(max_length=50, null=True)
-    password =models.CharField(max_length=120, null=True)
+    password = models.CharField(max_length=120, null=True)
     Telephone = models.CharField(max_length=30)
-    parish = models.ForeignKey('Subcounty', on_delete=models.CASCADE, #related_name='parish'
-     null=True)
+    parish = models.ForeignKey('Subcounty', on_delete=models.CASCADE,  # related_name='parish'
+                               null=True)
+
     def __str__(self):
         return self.username
-    
+
+
 class Farmer(models.Model):
     GENDER = (
         ('Female', 'Female'),
         ('Male', 'male'),
-        
+
     )
-    MARRIAGE_STATUS= (
+    MARRIAGE_STATUS = (
         ('Married', 'Married'),
         ('Single', 'Single'),
-        
+
     )
-    Marriage_status =models.CharField(max_length=30, choices=MARRIAGE_STATUS)
+    Marriage_status = models.CharField(max_length=30, choices=MARRIAGE_STATUS)
     name = models.CharField(max_length=30)
     Age = models.IntegerField
     Telephone = models.IntegerField
-    image= models.ImageField(upload_to = '../Media/', default='./static/images/no_img.jpg')
-    Gender=models.CharField(max_length=20, choices=GENDER)
-    officer = models.ForeignKey('Officer', on_delete=models.CASCADE, related_name='officer', null=True)
+    image = models.ImageField(upload_to='../Media/',
+                              default='./static/images/no_img.jpg')
+    Gender = models.CharField(max_length=20, choices=GENDER)
+    officer = models.ForeignKey(
+        'Officer', on_delete=models.CASCADE, related_name='officer', null=True)
 
     def __str__(self):
         return self.name
 
+
 class Location(models.Model):
-    latitude=models.CharField
+    latitude = models.CharField
